@@ -1,0 +1,19 @@
+import scrapy
+from news.items import ItcastItem
+
+class ItcastSpider(scrapy.Spider):
+    name = 'itcast'
+    allowed_domains = ['itcast.cn']
+    start_urls = ['https://sports.sina.com.cn/global/']
+
+    def parse(self, response):
+        items = []
+
+        for each in response.xpath("//ul[@class='ul-type1']/li"):
+            # 将我们得到的数据封装到一个 `ItcastItem` 对象
+            item = ItcastItem()
+
+            print(each.xpath("a/text()").extract())
+            print(each.xpath("a/@href").extract())
+
+
